@@ -1,0 +1,79 @@
+package com.navanee.demo.controller;
+
+import com.navanee.demo.model.Task;
+import com.navanee.demo.service.TaskService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/tasks")
+public class TaskController {
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    // 🔹 1️⃣ Create a task
+    @PostMapping
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        return ResponseEntity.ok(taskService.createTask(task));
+    }
+
+    // 🔹 2️⃣ Get all tasks (No pagination)
+    @GetMapping("/all")
+    public ResponseEntity<List<Task>> getAllTasks() {
+        return ResponseEntity.ok(taskService.getAllTasks());
+    }
+
+    // 🔹 3️⃣ Get task by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+        return ResponseEntity.ok(taskService.getTaskById(id));
+    }
+
+    // 🔹 4️⃣ Get tasks by name
+    @GetMapping("/name/{taskName}")
+    public ResponseEntity<List<Task>> getTasksByName(@PathVariable String taskName) {
+        return ResponseEntity.ok(taskService.getTasksByName(taskName));
+    }
+
+    // 🔹 5️⃣ Search tasks by keyword
+    @GetMapping("/search")
+    public ResponseEntity<List<Task>> searchTasksByName(@RequestParam String keyword) {
+        return ResponseEntity.ok(taskService.searchTasksByName(keyword));
+    }
+
+    // 🔹 6️⃣ Get tasks by event ID
+    @GetMapping("/event/{eventId}")
+    public ResponseEntity<List<Task>> getTasksByEvent(@PathVariable Long eventId) {
+        return ResponseEntity.ok(taskService.getTasksByEvent(eventId));
+    }
+
+    // 🔹 7️⃣ Get all tasks with pagination & sorting
+    @GetMapping
+    public ResponseEntity<List<Task>> getAllTasks(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+    
+        List<Task> tasks = taskService.getAllTasks(page, size, sortBy, sortDir);
+        return ResponseEntity.ok(tasks);
+    }
+
+    // 🔹 8️⃣ Update task
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+        return ResponseEntity.ok(taskService.updateTask(id, task));
+    }
+
+    // 🔹 9️⃣ Delete task
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
+}
