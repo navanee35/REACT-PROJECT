@@ -4,7 +4,7 @@ import com.navanee.demo.model.Employee;
 import com.navanee.demo.service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.navanee.demo.model.Task;
 import java.util.List;
 
 @RestController
@@ -66,5 +66,26 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/updateByName/{currentEmployeeName}")
+    public ResponseEntity<String> updateEmployeeByName(@PathVariable String currentEmployeeName, @RequestBody Employee employee) {
+        Task task = employee.getTask(); // Assuming task is part of the employee object
+        int updatedRows = employeeService.updateEmployeeByName(currentEmployeeName, employee.getEmployeeName(), employee.getDesignation(), task);
+        if (updatedRows > 0) {
+            return ResponseEntity.ok("Employee updated successfully.");
+        } else {
+            return ResponseEntity.status(400).body("Employee not found or update failed.");
+        }
+    }
+
+    @DeleteMapping("/deleteByName/{employeeName}")
+    public ResponseEntity<String> deleteEmployeeByName(@PathVariable String employeeName) {
+        int deletedRows = employeeService.deleteEmployeeByName(employeeName);
+        if (deletedRows > 0) {
+            return ResponseEntity.ok("Employee deleted successfully.");
+        } else {
+            return ResponseEntity.status(400).body("Employee not found or deletion failed.");
+        }
     }
 }

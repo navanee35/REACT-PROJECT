@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import com.navanee.demo.model.Event;
 
 import java.util.List;
 
@@ -58,5 +59,15 @@ public class GuestService {
 
     public void deleteGuest(Long id) {
         guestRepository.deleteById(id);
+    }
+
+    // Method to update a guest by name
+    public int updateGuestByName(String oldName, String name, Event event) {
+        return guestRepository.updateGuestByName(oldName, name, event);
+    }
+
+    // Method to delete a guest by name
+    public int deleteGuestByName(String name) {
+        return guestRepository.deleteGuestByName(name);
     }
 }

@@ -62,4 +62,16 @@ public class VenueController {
         venueService.deleteVenue(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/location/{oldLocation}")
+    public ResponseEntity<Integer> updateVenueByLocation(@PathVariable String oldLocation, @RequestBody Venue venue) {
+        int result = venueService.updateVenueByLocation(oldLocation, venue.getName(), venue.getLocation(), venue.getCapacity());
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<Void> deleteVenueByName(@PathVariable String name) {
+        venueService.deleteVenueByName(name);
+        return ResponseEntity.noContent().build();
+    }
 }

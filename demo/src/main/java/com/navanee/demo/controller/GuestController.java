@@ -76,4 +76,16 @@ public class GuestController {
         guestService.deleteGuest(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/name/{oldName}")
+    public ResponseEntity<Integer> updateGuestByName(@PathVariable String oldName, @RequestBody Guest guest) {
+        int result = guestService.updateGuestByName(oldName, guest.getName(), guest.getEvent());
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<Void> deleteGuestByName(@PathVariable String name) {
+        guestService.deleteGuestByName(name);
+        return ResponseEntity.noContent().build();
+    }
 }

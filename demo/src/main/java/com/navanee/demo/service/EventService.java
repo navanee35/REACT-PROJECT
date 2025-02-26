@@ -56,4 +56,14 @@ public class EventService {
     public void deleteEvent(Long id) {
         eventRepository.deleteById(id);
     }
+
+    public int updateEventByEventName(String currentEventName, String eventName) {
+        return eventRepository.updateEventByEventName(currentEventName, eventName);
+    }
+    
+
+    public int deleteEventByEventName(String eventName) {
+        return eventRepository.deleteEventByEventName(eventName);
+    }
+    
 }

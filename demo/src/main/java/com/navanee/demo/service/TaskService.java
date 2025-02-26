@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
+import com.navanee.demo.model.Event;
 import java.util.List;
 
 @Service
@@ -58,5 +58,15 @@ public class TaskService {
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
+    }
+
+     // Method to update a task by eventId
+     public int updateTaskByEvent(Long eventId, String taskName, Event event) {
+        return taskRepository.updateTaskByEvent(eventId, taskName, event);
+    }
+
+    // Method to delete a task by taskName
+    public int deleteTaskByTaskName(String taskName) {
+        return taskRepository.deleteTaskByTaskName(taskName);
     }
 }

@@ -2,7 +2,7 @@ package com.navanee.demo.service;
 
 import com.navanee.demo.model.Employee;
 import com.navanee.demo.repository.EmployeeRepository;
-
+import com.navanee.demo.model.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -60,5 +60,13 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public int updateEmployeeByName(String currentEmployeeName, String employeeName, String designation, Task task) {
+        return employeeRepository.updateEmployeeByName(currentEmployeeName, employeeName, designation, task);
+    }
+
+    public int deleteEmployeeByName(String employeeName) {
+        return employeeRepository.deleteEmployeeByName(employeeName);
     }
 }

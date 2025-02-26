@@ -76,4 +76,18 @@ public class TaskController {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
+
+     // Endpoint to update a task by event ID
+     @PutMapping("/event/{eventId}")
+     public ResponseEntity<Integer> updateTaskByEvent(@PathVariable Long eventId, @RequestBody Task task) {
+         int result = taskService.updateTaskByEvent(eventId, task.getTaskName(), task.getEvent());
+         return ResponseEntity.ok(result);
+     }
+ 
+     // Endpoint to delete a task by taskName
+     @DeleteMapping("/name/{taskName}")
+     public ResponseEntity<Void> deleteTaskByTaskName(@PathVariable String taskName) {
+         taskService.deleteTaskByTaskName(taskName);
+         return ResponseEntity.noContent().build();
+     }
 }

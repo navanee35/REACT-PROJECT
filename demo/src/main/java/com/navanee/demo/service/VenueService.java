@@ -56,4 +56,14 @@ public class VenueService {
     public void deleteVenue(Long id) {
         venueRepository.deleteById(id);
     }
+
+      // Method to update venue by location
+      public int updateVenueByLocation(String oldLocation, String name, String location, int capacity) {
+        return venueRepository.updateVenueByLocation(oldLocation, name, location, capacity);
+    }
+
+    // Method to delete venue by name
+    public int deleteVenueByName(String name) {
+        return venueRepository.deleteVenueByName(name);
+    }
 }

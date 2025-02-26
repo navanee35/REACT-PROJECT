@@ -64,4 +64,26 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/updateByName/{currentEventName}")
+public ResponseEntity<String> updateEventByEventName(@PathVariable String currentEventName, @RequestBody Event event) {
+    int updatedRows = eventService.updateEventByEventName(currentEventName, event.getEventName());
+    if (updatedRows > 0) {
+        return ResponseEntity.ok("Event updated successfully.");
+    } else {
+        return ResponseEntity.status(400).body("Event not found or update failed.");
+    }
+}
+
+
+@DeleteMapping("/deleteByName/{eventName}")
+public ResponseEntity<String> deleteEventByEventName(@PathVariable String eventName) {
+    int deletedRows = eventService.deleteEventByEventName(eventName);
+    if (deletedRows > 0) {
+        return ResponseEntity.ok("Event deleted successfully.");
+    } else {
+        return ResponseEntity.status(400).body("Event not found or deletion failed.");
+    }
+}
+
 }
