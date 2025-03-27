@@ -28,14 +28,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Page<Event> findAllEvents(Pageable pageable);
 
     @Transactional
-@Modifying
-@Query("UPDATE Event e SET e.eventName = :eventName WHERE LOWER(e.eventName) = LOWER(:currentEventName)")
-int updateEventByEventName(String currentEventName, String eventName);
+    @Modifying
+    @Query("UPDATE Event e SET e.eventName = :eventName WHERE LOWER(e.eventName) = LOWER(:currentEventName)")
+    int updateEventByEventName(String currentEventName, String eventName);
 
-@Transactional
-@Modifying
-@Query("DELETE FROM Event e WHERE LOWER(e.eventName) = LOWER(:eventName)")
-int deleteEventByEventName(String eventName);
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Event e WHERE LOWER(e.eventName) = LOWER(:eventName)")
+    int deleteEventByEventName(String eventName);
 
 
 }
